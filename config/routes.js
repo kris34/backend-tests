@@ -11,4 +11,7 @@ module.exports = (app) => {
   app.use('/create', hasUser(), createController);
   app.use('/catalog', catalogController);
   app.use('/blog', blogController);
+  app.get('*', (req, res) => {
+    res.render('404', { title: 'Page Not Found' });
+  });
 };

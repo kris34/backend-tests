@@ -20,10 +20,22 @@ async function deleteById(id) {
   return await Blog.findByIdAndDelete(id);
 }
 
+async function editBlog(id, blog) {
+  const existing = await Blog.findById(id);
+
+  existing.title = blog.title;
+  existing.imageUrl = blog.imageUrl;
+  existing.content = blog.content;
+  existing.category = blog.category;
+
+  await existing.save()
+}
+
 module.exports = {
   createBlog,
   getAll,
   getById,
   getByIdWithOwner,
-  deleteById
+  deleteById,
+  editBlog
 };
