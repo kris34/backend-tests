@@ -1,4 +1,5 @@
 const blogController = require('express').Router();
+const { isGuest } = require('../middlewares/guards');
 const {
   getById,
   getByIdWithOwner,
@@ -22,7 +23,7 @@ blogController.get('/:id/details', async (req, res) => {
   });
 });
 
-blogController.get('/:id/delete', async (req, res) => {
+blogController.get('/:id/delete', isGuest, async (req, res) => {
   await deleteById(req.params.id);
 
   res.redirect('/catalog');
@@ -37,7 +38,7 @@ blogController.get('/:id/edit', async (req, res) => {
   });
 });
 
-blogController.post('/:id/edit', async (req, res) => {
+blogController.post('/:id/edit', isGuest(), async (req, res) => {
   const blog = await getById(req.params.id);
 
   const edited = {
@@ -63,5 +64,7 @@ blogController.post('/:id/edit', async (req, res) => {
     });
   }
 });
+
+blogController.get("")
 
 module.exports = blogController;

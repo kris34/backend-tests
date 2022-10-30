@@ -28,7 +28,17 @@ async function editBlog(id, blog) {
   existing.content = blog.content;
   existing.category = blog.category;
 
-  await existing.save()
+  await existing.save();
+}
+
+async function followBlog(blogId, userId) {
+  const blog = await Blog.findById(blogId);
+
+  if (blog.followList.includes(userId)) {
+    throw new Error('" You already follow this blog!');
+  }
+  blog.followList.push(userId);
+  await blog.save();
 }
 
 module.exports = {
@@ -37,5 +47,5 @@ module.exports = {
   getById,
   getByIdWithOwner,
   deleteById,
-  editBlog
+  editBlog,
 };

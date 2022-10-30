@@ -23,6 +23,10 @@ async function register(email, username, password) {
     throw new Error('Username is taken!');
   }
 
+  if (password.length < 4) {
+    throw new Error('Passowrd must be at least 4 charakters long! ');
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
