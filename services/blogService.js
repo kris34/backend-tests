@@ -8,7 +8,12 @@ async function getAll() {
   return await Blog.find({}).lean();
 }
 
+async function getById(id) {
+  return await Blog.findById(id).lean();
+}
+
 module.exports = {
   createBlog,
-  getAll
+  getAll,
+  getById
 };
